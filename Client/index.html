@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Upload</title>
+  </head>
+  <body>
+    <h1>Image Upload</h1>
+    <form id="image-form" enctype="multipart/form-data">
+      <label for="image-input">Select an image to upload:</label>
+      <input type="file" id="image-input" name="image" accept="image/*" />
+      <button type="submit">Upload</button>
+    </form>
+    <script>
+      const imageForm = document.getElementById("image-form");
+
+      // Listen for the 'submit' event on the form element
+      imageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        // Create a new FormData object and add the selected file to it
+        const formData = new FormData();
+        const imageInput = document.getElementById("image-input");
+        formData.append("image", imageInput.files[0]);
+        // Make a POST request to the server with the FormData object as the request body
+        fetch("http://localhost:3035/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Image uploaded successfully!");
+            } else {
+              console.error("Image upload failed:", response.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error("Image upload failed:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
