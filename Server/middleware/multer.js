@@ -18,7 +18,13 @@ const fileFilter = function (req, file, cb) {
     cb(new Error("Only image files are allowed!"), false);
   }
 };
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 500 * 1024, // 1MB
+  },
+});
 
 const multupload = upload.single("image");
 module.exports = multupload;
