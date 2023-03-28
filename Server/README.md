@@ -1,1 +1,3 @@
 # Img2Text
+
+#.env

@@ -34,7 +34,7 @@ const pancard = async (req, res) => {
 const readAadhar = async (req, res) => {
   try {
     tessract
-      .recognize("./images/crop.png", "eng+hin", {
+      .recognize("./images/crop.png", "eng", {
         logger: (m) => {
           //console.log(m);
         },
