@@ -8,11 +8,11 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("tiny"));
 app.use("/", cardRouter);
-const port = process.argv[2] || 3035;
-
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Ready to work..");
 });
+const port = process.argv[2] || 3035;
+
 app.listen(port, () => {
   console.log(`Server has started on http://localhost:${port}`);
 });
