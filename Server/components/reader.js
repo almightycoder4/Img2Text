@@ -1,6 +1,5 @@
 const tessract = require("tesseract.js");
-const sharp = require("sharp");
-const fs = require("fs");
+const cleaner = require("./cleaner");
 const {
   getPan,
   getDob,
@@ -19,7 +18,6 @@ const pancard = async (req, res) => {
   try {
     const text = await detectText("./images/crop.png");
     let getText = text;
-    console.log(getText);
     let splitText = getText.split(/\n|:/);
     let data = {
       name: splitText[0].replace(/[^\w\s]/gi, ""),
@@ -28,6 +26,7 @@ const pancard = async (req, res) => {
       panNo: getPan(splitText).replace(/[^\w\s]/gi, ""),
     };
     res.send(data);
+    cleaner();
   } catch (error) {
     console.log(error.message);
   }
@@ -36,7 +35,6 @@ const readAadhar = async (req, res) => {
   try {
     const text = await detectText("./images/crop.png");
     let getText = text;
-    console.log(getText);
     let splitText = getText.split(/\n|:/);
     let data = {
       name: getName(splitText),
@@ -45,6 +43,7 @@ const readAadhar = async (req, res) => {
       adharno: getAdharno(splitText),
     };
     res.send(data);
+    cleaner();
   } catch (error) {
     console.log(error.message);
   }
@@ -52,9 +51,7 @@ const readAadhar = async (req, res) => {
 const readDL = async (req, res) => {
   try {
     const text = await detectText("./images/crop.png");
-    console.log(text);
     let splitText = text.split("\n");
-
     let data = {
       name: getDLname(splitText),
       dlNo: getDLNum(splitText),
@@ -63,9 +60,8 @@ const readDL = async (req, res) => {
       validity: getDLValidity(splitText),
       dob: getDLdob(splitText),
     };
-
     res.send(data);
-    console.log(splitText);
+    cleaner();
   } catch (error) {
     console.log(error.message);
   }
@@ -74,9 +70,7 @@ const readOther = async (req, res) => {
   try {
     tessract
       .recognize("./images/crop.png", "eng", {
-        logger: (m) => {
-          //console.log(m);
-        },
+        logger: (m) => {},
       })
       .then((result) => {
         res.send(result.data.text);
