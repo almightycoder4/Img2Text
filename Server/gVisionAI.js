@@ -9,10 +9,14 @@ const CONFIG2 = {
 const client = new vision.ImageAnnotatorClient(CONFIG2);
 
 const detectText = async (filepath) => {
-  const [result] = await client.textDetection(filepath);
-  return result.fullTextAnnotation.text;
+  try {
+    const [result] = await client.textDetection(filepath);
+    return result.fullTextAnnotation.text;
+  } catch (error) {
+    console.log(error.message);
+  }
+
   //console.log(result.fullTextAnnotation.text);
 };
-console.log(process.env.TEST_KEY);
 //detectText("../images/crop.png");
 module.exports = { detectText };

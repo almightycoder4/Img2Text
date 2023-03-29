@@ -2,96 +2,55 @@ const tessract = require("tesseract.js");
 const sharp = require("sharp");
 const fs = require("fs");
 const finalCrop = require("../imageCrop/crop1");
-const { getPan, getDob, getGender, getName } = require("./getData");
+const { getPan, getDob, getGender, getName, getAdharno } = require("./getData");
 const { detectText } = require("../gVisionAI.js");
 const pancard = async (req, res) => {
   try {
-    tessract
-      .recognize("./images/crop.png", "eng", {
-        logger: (m) => {
-          //console.log(m);
-        },
-      })
-      .then((result) => {
-        console.log(result.data.text);
-        let getText = result.data.text;
-        let splitText = getText.split("\n");
-        let pan = getPan(splitText).replace(/[^\w\s]/gi, "");
-        let dob = getDob(splitText);
-        let data = {
-          name: splitText[0].replace(/[^\w\s]/gi, ""),
-          fathername: splitText[1].replace(/[^\w\s]/gi, ""),
-          dob: dob,
-          panNo: pan,
-        };
-        res.send(data);
-        console.log(data);
-      });
+    const text = await detectText("./images/crop.png");
+    let getText = text;
+    console.log(getText);
+    let splitText = getText.split(/\n|:/);
+    let data = {
+      name: splitText[0].replace(/[^\w\s]/gi, ""),
+      fathername: splitText[1].replace(/[^\w\s]/gi, ""),
+      dob: getDob(splitText),
+      panNo: getPan(splitText).replace(/[^\w\s]/gi, ""),
+    };
+    res.send(data);
   } catch (error) {
     console.log(error.message);
   }
 };
 const readAadhar = async (req, res) => {
   try {
-    // tessract
-    //   .recognize("./images/crop.png", "eng", {
-    //     logger: (m) => {
-    //       //console.log(m);
-    //     },
-    //   })
-    //   .then((result) => {
-    //     let getText = result.data.text;
-    //     let splitText = getText.split(/\n|:/);
-    //     let gender = getGender(splitText);
-    //     let dob = getDob(splitText);
-    //     console.log(splitText);
-    //     let data = {
-    //       name: getName(splitText),
-    //       dob: dob,
-    //       gender: gender,
-    //     };
-    //     res.send(data);
-    //     console.log(data);
-    //   });
-    await detectText("./images/crop.png").then((text) => {
-      let getText = text;
-      console.log(getText);
-      let splitText = getText.split(/\n|:/);
-      let data = {
-        name: getName(splitText),
-        dob: getDob(splitText),
-        gender: getGender(splitText),
-        adharno: getAdharno(splitText),
-      };
-      res.send(data);
-    });
+    const text = await detectText("./images/crop.png");
+    let getText = text;
+    console.log(getText);
+    let splitText = getText.split(/\n|:/);
+    let data = {
+      name: getName(splitText),
+      dob: getDob(splitText),
+      gender: getGender(splitText),
+      adharno: getAdharno(splitText),
+    };
+    res.send(data);
   } catch (error) {
     console.log(error.message);
   }
 };
 const readDL = async (req, res) => {
   try {
-    tessract
-      .recognize("./images/crop.png", "eng", {
-        logger: (m) => {
-          //console.log(m);
-        },
-      })
-      .then((result) => {
-        let getText = result.data.text;
-        console.log(getText);
-        let splitText = getText.split(/\n|:/);
-        let gender = getGender(splitText);
-        let dob = getDob(splitText);
-        console.log(splitText);
-        let data = {
-          name: getName(splitText),
-          dob: dob,
-          gender: gender,
-        };
-        res.send(data);
-        console.log(data);
-      });
+    const text = await detectText("./images/crop.png");
+    let getText = text;
+    console.log(getText);
+    let splitText = getText.split(/\n|:/);
+    // let data = {
+    //   name: splitText[0].replace(/[^\w\s]/gi, ""),
+    //   fathername: splitText[1].replace(/[^\w\s]/gi, ""),
+    //   dob: getDob(splitText),
+    //   panNo: getPan(splitText).replace(/[^\w\s]/gi, ""),
+    // };
+    res.send(getText);
   } catch (error) {
     console.log(error.message);
   }

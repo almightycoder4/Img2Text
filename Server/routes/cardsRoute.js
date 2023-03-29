@@ -5,18 +5,13 @@ const {
   readDL,
   readOther,
 } = require("../components/pancard");
-const {
-  finalCrop,
-  firstCrop,
-  adharCrop,
-  dlCrop,
-} = require("../imageCrop/crop1");
+const { panCrop, firstCrop, adharCrop, dlCrop } = require("../imageCrop/crop1");
 const multupload = require("../middleware/multer");
 const cardRouter = express.Router();
 
-cardRouter.post("/readpan", multupload, firstCrop, finalCrop, pancard);
+cardRouter.post("/readpan", multupload, firstCrop, panCrop, pancard);
 cardRouter.post("/readAadhar", multupload, firstCrop, adharCrop, readAadhar);
 cardRouter.post("/readDL", multupload, firstCrop, dlCrop, readDL);
-cardRouter.post("/readother", multupload, firstCrop, finalCrop, readOther);
+cardRouter.post("/readother", multupload, firstCrop, panCrop, readOther);
 
 module.exports = cardRouter;

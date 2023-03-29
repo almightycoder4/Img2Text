@@ -27,6 +27,12 @@ const getName = (text) => {
   }
   return "not found!";
 };
+const getAdharno = (text) => {
+  for (let i = 0; i < text.length; i++) {
+    if (isValidAdharno(text[i])) return text[i];
+  }
+  return "not found!";
+};
 
 function containsInteger(str) {
   const regex = /\d+/;
@@ -48,4 +54,8 @@ function isValidName(str) {
   const pattern = /^[A-Za-z]{3,}(?: [A-Za-z]+)*$/;
   return pattern.test(str);
 }
-module.exports = { getPan, getDob, getGender, getName };
+function isValidAdharno(str) {
+  const pattern = /^\d{4} \d{4} \d{4}$/;
+  return pattern.test(str);
+}
+module.exports = { getPan, getDob, getGender, getName, getAdharno };

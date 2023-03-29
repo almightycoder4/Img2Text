@@ -27,7 +27,7 @@ const firstCrop = async (req, res, next) => {
     next();
   } catch (error) {}
 };
-const finalCrop = async (req, res, next) => {
+const panCrop = async (req, res, next) => {
   try {
     setTimeout(() => {
       const smallFile = "./images/image.png";
@@ -47,9 +47,13 @@ const finalCrop = async (req, res, next) => {
             return true;
           }
         });
+    }, 500);
+    setTimeout(() => {
       next();
-    }, 1000);
-  } catch (error) {}
+    }, 800);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 const adharCrop = async (req, res, next) => {
   try {
@@ -59,9 +63,9 @@ const adharCrop = async (req, res, next) => {
       sharp(smallBuffer)
         .extract({ left: 160, top: 60, width: 270, height: 240 })
         .greyscale()
-        // adjust the colors to make them more natural
-        // increase the sharpness of the image
-        .gamma(1.5)
+        .normalize()
+        .sharpen()
+        .gamma(1.0)
         .toFormat("png")
         .toFile("./images/crop.png", (err, info) => {
           if (err) {
@@ -72,9 +76,13 @@ const adharCrop = async (req, res, next) => {
             return true;
           }
         });
-      next();
     }, 500);
-  } catch (error) {}
+    setTimeout(() => {
+      next();
+    }, 1000);
+  } catch (error) {
+    console.log(error.message());
+  }
 };
 const dlCrop = async (req, res, next) => {
   try {
@@ -82,7 +90,7 @@ const dlCrop = async (req, res, next) => {
       const smallFile = "./images/image.png";
       const smallBuffer = fs.readFileSync(smallFile);
       sharp(smallBuffer)
-        .extract({ left: 10, top: 30, width: 380, height: 50 })
+        .extract({ left: 10, top: 30, width: 380, height: 300 })
         .normalize() // adjust the colors to make them more natural
         .sharpen() // increase the sharpness of the image
         .gamma(1.0)
@@ -96,9 +104,13 @@ const dlCrop = async (req, res, next) => {
             return true;
           }
         });
-      next();
     }, 500);
-  } catch (error) {}
+    setTimeout(() => {
+      next();
+    }, 800);
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-module.exports = { finalCrop, firstCrop, adharCrop, dlCrop };
+module.exports = { panCrop, firstCrop, adharCrop, dlCrop };
