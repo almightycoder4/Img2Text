@@ -90,7 +90,35 @@ const dlCrop = async (req, res, next) => {
       const smallFile = "./images/image.png";
       const smallBuffer = fs.readFileSync(smallFile);
       sharp(smallBuffer)
-        .extract({ left: 10, top: 30, width: 380, height: 300 })
+        .extract({ left: 10, top: 50, width: 420, height: 280 })
+        .normalize() // adjust the colors to make them more natural
+        .sharpen() // increase the sharpness of the image
+        .gamma(1.0)
+        .toFormat("png")
+        .toFile("./images/crop.png", (err, info) => {
+          if (err) {
+            console.log(err);
+            return false;
+          } else {
+            console.log(info);
+            return true;
+          }
+        });
+    }, 500);
+    setTimeout(() => {
+      next();
+    }, 800);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const noCrop = async (req, res, next) => {
+  try {
+    setTimeout(() => {
+      const smallFile = "./images/image.png";
+      const smallBuffer = fs.readFileSync(smallFile);
+      sharp(smallBuffer)
+        .extract({ left: 0, top: 0, width: 550, height: 340 })
         .normalize() // adjust the colors to make them more natural
         .sharpen() // increase the sharpness of the image
         .gamma(1.0)
@@ -113,4 +141,4 @@ const dlCrop = async (req, res, next) => {
   }
 };
 
-module.exports = { panCrop, firstCrop, adharCrop, dlCrop };
+module.exports = { panCrop, firstCrop, adharCrop, dlCrop, noCrop };
