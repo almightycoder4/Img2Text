@@ -3,7 +3,7 @@ const sharp = require("sharp");
 const fs = require("fs");
 const finalCrop = require("../imageCrop/crop1");
 const { getPan, getDob, getGender, getName } = require("./getData");
-
+const { detectText } = require("../gVisionAI.js");
 const pancard = async (req, res) => {
   try {
     tessract
@@ -33,26 +33,38 @@ const pancard = async (req, res) => {
 };
 const readAadhar = async (req, res) => {
   try {
-    tessract
-      .recognize("./images/crop.png", "eng", {
-        logger: (m) => {
-          //console.log(m);
-        },
-      })
-      .then((result) => {
-        let getText = result.data.text;
-        let splitText = getText.split(/\n|:/);
-        let gender = getGender(splitText);
-        let dob = getDob(splitText);
-        console.log(splitText);
-        let data = {
-          name: getName(splitText),
-          dob: dob,
-          gender: gender,
-        };
-        res.send(data);
-        console.log(data);
-      });
+    // tessract
+    //   .recognize("./images/crop.png", "eng", {
+    //     logger: (m) => {
+    //       //console.log(m);
+    //     },
+    //   })
+    //   .then((result) => {
+    //     let getText = result.data.text;
+    //     let splitText = getText.split(/\n|:/);
+    //     let gender = getGender(splitText);
+    //     let dob = getDob(splitText);
+    //     console.log(splitText);
+    //     let data = {
+    //       name: getName(splitText),
+    //       dob: dob,
+    //       gender: gender,
+    //     };
+    //     res.send(data);
+    //     console.log(data);
+    //   });
+    await detectText("./images/crop.png").then((text) => {
+      let getText = text;
+      console.log(getText);
+      let splitText = getText.split(/\n|:/);
+      let data = {
+        name: getName(splitText),
+        dob: getDob(splitText),
+        gender: getGender(splitText),
+        adharno: getAdharno(splitText),
+      };
+      res.send(data);
+    });
   } catch (error) {
     console.log(error.message);
   }

@@ -57,10 +57,11 @@ const adharCrop = async (req, res, next) => {
       const smallFile = "./images/image.png";
       const smallBuffer = fs.readFileSync(smallFile);
       sharp(smallBuffer)
-        .extract({ left: 140, top: 50, width: 270, height: 250 })
-        .normalize() // adjust the colors to make them more natural
-        .sharpen() // increase the sharpness of the image
-        .gamma(1.0)
+        .extract({ left: 160, top: 60, width: 270, height: 240 })
+        .greyscale()
+        // adjust the colors to make them more natural
+        // increase the sharpness of the image
+        .gamma(1.5)
         .toFormat("png")
         .toFile("./images/crop.png", (err, info) => {
           if (err) {
