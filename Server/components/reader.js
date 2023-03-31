@@ -73,7 +73,9 @@ const readOther = async (req, res) => {
         logger: (m) => {},
       })
       .then((result) => {
-        res.send(result.data.text);
+        res.send({
+          data: result.data.text,
+        });
       });
   } catch (error) {
     console.log(error.message);

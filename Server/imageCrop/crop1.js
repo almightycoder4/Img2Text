@@ -19,8 +19,8 @@ const firstCrop = async (req, res, next) => {
           console.log(err);
           return false;
         } else {
-          console.log(info);
-          console.log("first done");
+          // console.log(info);
+          // console.log("first done");
           return true;
         }
       });
@@ -43,7 +43,7 @@ const panCrop = async (req, res, next) => {
             console.log(err);
             return false;
           } else {
-            console.log(info);
+            // console.log(info);
             return true;
           }
         });
@@ -72,7 +72,7 @@ const adharCrop = async (req, res, next) => {
             console.log(err);
             return false;
           } else {
-            console.log(info);
+            // console.log(info);
             return true;
           }
         });
@@ -100,7 +100,7 @@ const dlCrop = async (req, res, next) => {
             console.log(err);
             return false;
           } else {
-            console.log(info);
+            // console.log(info);
             return true;
           }
         });
@@ -128,7 +128,7 @@ const noCrop = async (req, res, next) => {
             console.log(err);
             return false;
           } else {
-            console.log(info);
+            // console.log(info);
             return true;
           }
         });

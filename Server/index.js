@@ -3,17 +3,6 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 const cardRouter = require("./routes/cardsRoute");
-const fs = require("fs");
-
-const directoryName = "images";
-
-fs.mkdir(directoryName, (err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`Directory '${directoryName}' created successfully.`);
-  }
-});
 
 app.use(express.json());
 app.use(cors());
