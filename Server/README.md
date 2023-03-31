@@ -38,6 +38,11 @@ CLIENT_EMAIL="YOUR GOOGLE VISON API CLIENT_EMAIL ID"
 ![App Screenshot](https://github.com/almightycoder4/Img2Text/blob/main/ScreenShot/Server1.png?raw=true)
 
 Server will start on http://localhost:3035/
+## API Routes
+#### Pan Card:- http://localhost:3035/readpan
+#### Adhar Card:- http://localhost:3035/readAadhar
+#### Driving License Card:- http://localhost:3035/readDL
+#### Other Text Images:- http://localhost:3035/readother
 
 ### You can use any API Platform, I used POSTMAN API
 
@@ -57,4 +62,4 @@ This project was made possible thanks to the following technologies:
 - Morgan
 - Multer
 - CORS
-  Thank you to the developers of these amazing tools and technologies!
+  #### Thank you to the developers of these amazing tools and technologies!
