@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
+import Loader from "../components/Loader";
 export default function Home() {
   const [image, setimage] = useState(null);
   const [Previmg, setPrevimg] = useState(null);
+  const [load, setload] = useState(false);
   const [data, setdata] = useState("");
   const [route, setroute] = useState("");
   const [submit, setsubmit] = useState(false);
   useEffect(() => {
     if (submit) {
-      console.log("fetching");
+      setload(true);
       const formData = new FormData();
-      console.log(image);
       formData.append("image", image);
-      console.log(route);
-      fetch(`http://localhost:3035/${route}`, {
+      fetch(`https://parallel-super-rain.glitch.me/${route}`, {
         method: "POST",
         body: formData,
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setdata(data);
           setsubmit(false);
+          setload(false);
         })
         .catch((error) => {
           setdata(error);
           console.error("Error:", error);
           setsubmit(false);
+          setdata("error");
+          setload(false);
         });
       setsubmit(false);
     }
@@ -46,6 +48,13 @@ export default function Home() {
     <>
       <>
         <h1>Image2JSON</h1>
+        <h3>In this application you can get Govt ID details in JSON format.</h3>
+        <h3>Supported ID Proofs:</h3>
+        <p>
+          Adhar Card{" (New/Old)"}, Pan Card, Driving License{" (New)"}, Other
+          Text Image Files
+        </p>
+
         <div id="">
           <div id="chooseimg">
             <select name="" id="idtype" onChange={handleRoute}>
@@ -68,10 +77,10 @@ export default function Home() {
           </div>
         </div>
         <div id="jsonbox">
-          <h3>Copy JSON Data Format:</h3>
+          <h3>JSON Data Format:</h3>
+
           <div
             style={{
-              display: "flex",
               backgroundColor: "#F8F8F8",
               border: "1px solid #DDD",
               borderRadius: "5px",
@@ -79,17 +88,32 @@ export default function Home() {
               fontFamily: "monospace",
               fontSize: "14px",
               color: "#d12222",
+              width: "800px",
+              height: "auto",
+              margin: "auto",
             }}
           >
-            <pre>
-              <p>{JSON.stringify(data, null, 4)}</p>
-            </pre>
+            {load ? (
+              <Loader />
+            ) : (
+              data && (
+                <pre style={{ display: "flex" }}>
+                  {JSON.stringify(data, null, 4)}
+                </pre>
+              )
+            )}
           </div>
         </div>
         <button id="uploadbtn" onClick={handleSubmit}>
           Get JSON Data
         </button>
       </>
+      <br />
+      <br />
+      <footer>
+        Design and Developed By Pawan Singh @{" "}
+        <a href="https://pawandev.netlify.app">https://pawandev.netlify.app</a>
+      </footer>
     </>
   );
 }

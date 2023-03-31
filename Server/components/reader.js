@@ -29,6 +29,9 @@ const pancard = async (req, res) => {
     cleaner();
   } catch (error) {
     console.log(error.message);
+    res.send({
+      data: "Select Valid Card Type",
+    });
   }
 };
 const readAadhar = async (req, res) => {
@@ -46,6 +49,9 @@ const readAadhar = async (req, res) => {
     cleaner();
   } catch (error) {
     console.log(error.message);
+    res.send({
+      data: "Select Valid Card Type",
+    });
   }
 };
 const readDL = async (req, res) => {
@@ -64,6 +70,9 @@ const readDL = async (req, res) => {
     cleaner();
   } catch (error) {
     console.log(error.message);
+    res.send({
+      data: "Select Valid Card Type",
+    });
   }
 };
 const readOther = async (req, res) => {
@@ -73,12 +82,16 @@ const readOther = async (req, res) => {
         logger: (m) => {},
       })
       .then((result) => {
+        let splitText = result.data.text.split("\n");
         res.send({
-          data: result.data.text,
+          data: splitText,
         });
       });
   } catch (error) {
     console.log(error.message);
+    res.send({
+      data: "Select Valid Card Type",
+    });
   }
 };
 module.exports = { pancard, readAadhar, readDL, readOther };
