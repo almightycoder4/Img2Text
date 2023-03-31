@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("tiny"));
 app.use("/", cardRouter);
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Ready to work..");
 });
 const port = process.argv[2] || 3035;
