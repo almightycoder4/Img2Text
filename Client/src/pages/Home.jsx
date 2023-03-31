@@ -26,7 +26,7 @@ export default function Home() {
           setdata(error);
           console.error("Error:", error);
           setsubmit(false);
-          setdata("error");
+          setdata(error.message);
           setload(false);
         });
       setsubmit(false);
@@ -88,7 +88,7 @@ export default function Home() {
               fontFamily: "monospace",
               fontSize: "14px",
               color: "#d12222",
-              width: "800px",
+              width: "600px",
               height: "auto",
               margin: "auto",
             }}
@@ -111,8 +111,22 @@ export default function Home() {
       <br />
       <br />
       <footer>
-        Design and Developed By Pawan Singh @{" "}
-        <a href="https://pawandev.netlify.app">https://pawandev.netlify.app</a>
+        <div>
+          Design and Developed By Pawan Singh @{" "}
+          <a href="https://pawandev.netlify.app">
+            https://pawandev.netlify.app
+          </a>
+        </div>
+        <div>
+          <h4>
+            Like & Support On:{" "}
+            <a href="https://github.com/almightycoder4">AlmightyCoder4</a>
+          </h4>
+          <h4>
+            Repo Link:{" "}
+            <a href="https://github.com/almightycoder4/Img2Text">Click Here</a>
+          </h4>
+        </div>
       </footer>
     </>
   );
