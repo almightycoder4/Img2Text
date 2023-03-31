@@ -62,4 +62,4 @@ This project was made possible thanks to the following technologies:
 - Morgan
 - Multer
 - CORS
-  Thank you to the developers of these amazing tools and technologies!
+  #### Thank you to the developers of these amazing tools and technologies!
