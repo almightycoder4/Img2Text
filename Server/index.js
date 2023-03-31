@@ -11,6 +11,9 @@ app.use("/", cardRouter);
 app.get("/", (req, res) => {
   res.send("Ready to work..");
 });
+app.get("/select", (req, res) => {
+  res.send("No image found.");
+});
 const port = process.argv[2] || 3035;
 
 app.listen(port, () => {
