@@ -2,7 +2,11 @@
 
 This project is a backend program built using Node.js, Express, Tesseract JS, Google Vision AI, Morgan, Multer, and CORS. It extracts data from images of client's Aadhar Card, PAN Card, and Driving License, and outputs client details in JSON format.
 
-#### Server is Live on : https://parallel-super-rain.glitch.me/
+#### Website is Live on : https://imgtojson.netlify.app/
+
+![image](https://user-images.githubusercontent.com/113767530/229311543-68dc69b6-8fb1-40a3-a1e0-cdb9b4941856.png)
+
+
 
 This is a free Glitch Server which takes 30s-50s to getting alive and the it ready to work.
 
