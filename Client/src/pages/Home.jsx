@@ -97,7 +97,7 @@ export default function Home() {
               <Loader />
             ) : (
               data && (
-                <pre style={{ display: "flex" }}>
+                <pre style={{ display: "flex", justifyContent: "center" }}>
                   {JSON.stringify(data, null, 4)}
                 </pre>
               )
