@@ -8,7 +8,7 @@ This project is a backend program built using Node.js, Express, Tesseract JS, Go
 
 
 
-This is a free Glitch Server which takes 30s-50s to getting alive and the it ready to work.
+This is a free Glitch Server which takes 30s-50s to getting alive and then it ready to work.
 
 #### You can also run on your local system by following instruction...
 
